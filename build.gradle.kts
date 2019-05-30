@@ -3,7 +3,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
 
     // https://docs.spring.io/spring-boot/docs/2.1.x/gradle-plugin/reference/html/
-    id("org.springframework.boot") version "2.0.9.RELEASE"
+    id("org.springframework.boot") version "2.1.5.RELEASE"
 
     // https://github.com/n0mer/gradle-git-properties
     id("com.gorylenko.gradle-git-properties") version "2.0.0"

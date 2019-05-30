@@ -1,7 +1,5 @@
 package se.lazystone.spring.bugs.api;
 
-import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -17,15 +15,13 @@ import reactor.core.publisher.Mono;
 public class StorageEndpoint {
   private static final Logger LOGGER = LoggerFactory.getLogger(StorageEndpoint.class);
 
-  // https://github.com/spring-projects/spring-framework/issues/22973
+  // https://github.com/spring-projects/spring-framework/issues/23060
   @PostMapping(value = "/{callId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public Mono<Void> store(
       @PathVariable final String callId,
-      @RequestPart("metadata") final Map<String, String> metadata,
-      @RequestPart("fieldOne") final List<String> fieldOne,
-      @RequestPart("fieldTwo") final List<Double> fieldTwo) {
+      @RequestPart(value = "fieldOne", required = false) final Mono<String> fieldOne) {
 
-    LOGGER.debug("store() for {} called", callId);
-    return Mono.empty();
+    LOGGER.info("store() for {} called", callId);
+    return fieldOne.doOnNext(v -> LOGGER.info("Field value: {}", v)).then();
   }
 }
